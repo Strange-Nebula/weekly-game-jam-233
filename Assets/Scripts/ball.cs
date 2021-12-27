@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void TestDelegate(string behaviour);
+
 public class ball : MonoBehaviour
 {
 
+    public event TestDelegate TestEvent;
     int score_count=0;
     Rigidbody rb;
     bool playing = false;
@@ -19,6 +22,10 @@ public class ball : MonoBehaviour
         if(playing){
             projection.position = new Vector3(transform.position.x, 0.1f, transform.position.z);
         }
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+
+        }
     }
 
     void OnMouseOver(){
@@ -26,6 +33,10 @@ public class ball : MonoBehaviour
             rb.AddForce(new Vector3(0,500,0));
             playing = true;
             projection.gameObject.SetActive(true);
+            if(TestEvent!=null)
+                TestEvent("PlayBall");
+            else
+                Debug.LogWarning("TestEvent is NULL");
         }
     }
 
@@ -42,6 +53,10 @@ public class ball : MonoBehaviour
             playing = false;
             projection.gameObject.SetActive(false);
             score_count=0;
+            if(TestEvent!=null)
+                TestEvent("WalkAround");
+            else
+                Debug.LogWarning("TestEvent is NULL");
         }
         Debug.Log("Touched " + collision.gameObject.name + " score is " + score_count);
     }
