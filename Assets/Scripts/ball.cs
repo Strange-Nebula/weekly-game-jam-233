@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ball : MonoBehaviour
 {
+
+    int score_count=0;
     Rigidbody rb;
     bool playing = false;
     Transform projection;
@@ -21,7 +23,7 @@ public class ball : MonoBehaviour
 
     void OnMouseOver(){
         if(Input.GetMouseButtonDown(0) && rb.velocity.magnitude <= 0.2){
-            rb.AddForce(500f * new Vector3(0,1,0));
+            rb.AddForce(new Vector3(0,500,0));
             playing = true;
             projection.gameObject.SetActive(true);
         }
@@ -30,15 +32,17 @@ public class ball : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.name == "Plant"){
+            score_count ++;
             rb.velocity = new Vector3();
-            Vector3 force_vector = new Vector3(-transform.position.x,0,-transform.position.z).normalized * Random.Range(30f, 50f) + new Vector3(0,500,0);
+            Vector3 force_vector = new Vector3(-transform.position.x,0,-transform.position.z).normalized * Random.Range(30f, 50f) + new Vector3(0,(500 - 10*score_count),0);
             force_vector = Quaternion.AngleAxis(Random.Range(-90.0f, 90.0f), Vector3.up) * force_vector;
             rb.AddForce(force_vector);
         }if(collision.gameObject.name == "Floor"){
             rb.velocity = new Vector3();
             playing = false;
             projection.gameObject.SetActive(false);
+            score_count=0;
         }
-        Debug.Log("Touched " + collision.gameObject.name);
+        Debug.Log("Touched " + collision.gameObject.name + " score is " + score_count);
     }
 }
