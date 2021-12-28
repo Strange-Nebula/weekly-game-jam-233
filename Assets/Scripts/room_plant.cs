@@ -78,15 +78,32 @@ public class room_plant : MonoBehaviour
         }
     }
 
+    IEnumerator WakeUp(string next_behaviour){
+        rb.AddForce(300f * new Vector3(0,1,0));
+        while ((target_position-transform.position).magnitude > 2)
+        {
+            yield return transform.position = Vector3.MoveTowards(transform.position, target_position, speed);
+        }
+        SwitchBehaviour(next_behaviour);
+        yield return null;
+
+    }
+
     IEnumerator PlayBall(){
         while(true)
-            yield return transform.position = Vector3.MoveTowards(transform.position, target_position, speed);
+            yield return transform.position = Vector3.MoveTowards(transform.position, target_position, speed*1.2f);
     }
 
     public void SwitchBehaviour(string behav){
         StopCoroutine(behaviour);
-        behaviour = behav;
-        StartCoroutine(behaviour);
+        if(behaviour == "GoSleep"){
+            behaviour = "WakeUp";
+            StartCoroutine(behaviour, behav);
+        }else{
+            behaviour = behav;
+            StartCoroutine(behaviour);
+        }
+
     }
 
     void ball_TestEvent(string behav){

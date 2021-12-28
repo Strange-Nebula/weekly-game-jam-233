@@ -22,10 +22,6 @@ public class ball : MonoBehaviour
         if(playing){
             projection.position = new Vector3(transform.position.x, 0.1f, transform.position.z);
         }
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-
-        }
     }
 
     void OnMouseOver(){
@@ -45,7 +41,7 @@ public class ball : MonoBehaviour
         if(collision.gameObject.name == "Plant"){
             score_count ++;
             rb.velocity = new Vector3();
-            Vector3 force_vector = new Vector3(-transform.position.x,0,-transform.position.z).normalized * Random.Range(30f, 50f) + new Vector3(0,(500 - 10*score_count),0);
+            Vector3 force_vector = new Vector3(-transform.position.x,0,-transform.position.z).normalized * Random.Range(50f + 2*score_count, 70f + 2*score_count) + new Vector3(0,(500 - 10*score_count),0);
             force_vector = Quaternion.AngleAxis(Random.Range(-90.0f, 90.0f), Vector3.up) * force_vector;
             rb.AddForce(force_vector);
         }if(collision.gameObject.name == "Floor"){
