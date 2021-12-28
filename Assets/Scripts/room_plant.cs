@@ -5,6 +5,7 @@ using UnityEngine;
 public class room_plant : MonoBehaviour
 {
 
+    public ball ball_event;
     Rigidbody rb;
 
     string behaviour;
@@ -15,9 +16,13 @@ public class room_plant : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(ball_event == null){
+            ball_event = GameObject.FindObjectOfType<ball>();
+        }
+        ball_event.TestEvent += ball_TestEvent;
         rb = GetComponent<Rigidbody>();
 
-        behaviour = "PlayBall";
+        behaviour = "WalkAround";
 
         StartCoroutine(behaviour);
     }
@@ -82,5 +87,9 @@ public class room_plant : MonoBehaviour
         StopCoroutine(behaviour);
         behaviour = behav;
         StartCoroutine(behaviour);
+    }
+
+    void ball_TestEvent(string behav){
+        SwitchBehaviour(behav);
     }
 }
