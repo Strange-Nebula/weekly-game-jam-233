@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Match3 : MonoBehaviour
 {
@@ -10,6 +11,13 @@ public class Match3 : MonoBehaviour
     public Sprite[] pieces;
     public RectTransform gameBoard;
     public RectTransform killedBoard;
+    public TextMeshProUGUI movesTxt;
+    public TextMeshProUGUI scoreTxt;
+
+    [Header("UI Victory Elements")]
+    public RectTransform victoryScreen;
+    public TextMeshProUGUI scoreWinTxt;
+    public TextMeshProUGUI gainWinTxt;
 
     [Header("Prefabs")]
     public GameObject nodePiece;
@@ -19,6 +27,9 @@ public class Match3 : MonoBehaviour
 	int height = 9;
     int[] fills;
 	Node[,] board;
+
+    public int moves;
+    public int score;
 
     List<NodePiece> update;
     List<FlippedPieces> flipped;
@@ -54,17 +65,25 @@ public class Match3 : MonoBehaviour
             List<Point> connected = isConnected(piece.index, true);
             bool wasFlipped = (flip != null);
 
-            if(wasFlipped)
+            if(wasFlipped) //If we flipped to make this update
             {
                 flippedPiece = flip.getOtherPiece(piece);
                 AddPoints(ref connected, isConnected(flippedPiece.index, true));
             }
-            if(connected.Count == 0)
+            if(connected.Count == 0) //If we didn't make a match:
             {
-                if(wasFlipped) FlipPieces(piece.index, flippedPiece.index, false);
+                if(wasFlipped) //If we flipped...
+                    FlipPieces(piece.index, flippedPiece.index, false); //... then flip back
             }
-            else {
-                foreach(Point pnt in connected) {
+            else //If we made a match:
+            {
+                if(wasFlipped) {
+                    moves--;
+                    movesTxt.text = moves.ToString();
+                }
+                score += (connected.Count > 4? 25 : (connected.Count > 3? 10 : 0));
+                foreach(Point pnt in connected) //Remove the node pieces connected
+                {
                     KillPiece(pnt);
                     Node node = getNodeAtPoint(pnt);
                     NodePiece nodePiece = node.getPiece();
@@ -73,13 +92,24 @@ public class Match3 : MonoBehaviour
                         dead.Add(nodePiece);
                     }
                     node.SetPiece(null);
+                    score += 5;
                 }
+                scoreTxt.text = score.ToString();
 
                 ApplyGravityToBoard();
             }
 
-            flipped.Remove(flip);
+            flipped.Remove(flip); //Remove the flip after update
             update.Remove(piece);
+
+            if(moves <= 0)
+            {
+                victoryScreen.gameObject.SetActive(true);
+                scoreWinTxt.text = score.ToString();
+                int gain = (int)((float)(score) / 100) * (score >= 1200? 2 : 1); //Reach 1200 to have 2* more gain!
+                gainWinTxt.text = gain.ToString();
+                ClearDeadPieces();
+            }
         }
     }
 
@@ -158,6 +188,9 @@ public class Match3 : MonoBehaviour
         dead = new List<NodePiece>();
         killed = new List<KilledPiece>();
 
+        moves = 20;
+        score = 0;
+
     	InitializeBoard();
         VerifyBoard();
         InstantiateBoard();
@@ -200,7 +233,7 @@ public class Match3 : MonoBehaviour
                 GameObject p = Instantiate(nodePiece, gameBoard);
                 NodePiece piece = p.GetComponent<NodePiece>();
                 RectTransform rect = p.GetComponent<RectTransform>();
-                rect.anchoredPosition = new Vector2(100 * x, -100 * y);  //Positions of the rect on the grid! BKP here
+                rect.anchoredPosition = new Vector2(100 * x, -100 * y);  //Positions of the rect on the grid
                 piece.Initialize(val, new Point(x, y), pieces[val - 1]);
                 node.SetPiece(piece);
             }
@@ -248,6 +281,13 @@ public class Match3 : MonoBehaviour
         int val = getValueAtPoint(p) - 1;
         if(set != null && val >= 0 && val < pieces.Length)
             set.Initialize(pieces[val], getPositionFromPoint(p));
+    }
+
+    void ClearDeadPieces() {
+        foreach(Transform child in killedBoard.transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     List<Point> isConnected(Point p, bool main) {
@@ -309,10 +349,6 @@ public class Match3 : MonoBehaviour
         }
 
         if(main) for(int i = 0; i< connected.Count; i++) AddPoints(ref connected, isConnected(connected[i], false));
-
-        /* UNNESSASARY | REMOVE THIS!
-        if(connected.Count > 0) connected.Add(p);
-        */
 
         return connected;
     }
