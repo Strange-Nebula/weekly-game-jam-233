@@ -13,8 +13,8 @@ public class Match3 : MonoBehaviour
     [Header("Prefabs")]
     public GameObject nodePiece;
 
-	int width = 9;
-	int height = 9;
+	public int width = 9;
+	public int height = 9;
 	Node[,] board;
 
     List<NodePiece> update;

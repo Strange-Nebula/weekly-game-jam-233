@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2223811354550954690}
   - component: {fileID: 2986813648706626919}
   - component: {fileID: 1051516268699619757}
+  - component: {fileID: 1106017495109762982}
   m_Layer: 0
   m_Name: Pot
   m_TagString: Untagged
@@ -84,6 +85,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!208 &1106017495109762982
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555782606124822648}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.21100001, y: 0.21100001, z: 0.17600001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0.17500001}
+  m_TimeToStationary: 0.5
 --- !u!1001 &5471362587673019487
 PrefabInstance:
   m_ObjectHideFlags: 0
