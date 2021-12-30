@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -394,12 +394,25 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Here you will take care of a cute plant.\n\nArrosez-la, nourrissez-la,
-    jouez avec elle et observez-la grandir !\nVotre plante \xE9voluera selon la fa\xE7on
-    que vous aurez de vous en occuper : elle pourra\ndevenir un tournesol, un n\xE9nuphar
-    ou encore une plante carnivore !\n\nJouez \xE0 des mini-jeux pour gagner de l'argent
-    afin d'acheter de l'engrais et de l'eau !\nEt surtout, amusez-vous bien dans
-    Garden Pet !"
+  m_text: 'Here you will take care of a cute plant.
+
+
+    Water them, feed them and
+    play with them to watch them grow!
+
+    Yout plant will evolve depending on how
+    you took care of them; she could become a sunflower, a water lily or a even a
+    carnivorous plant!
+
+    Arrosez-la, nourrissez-la, jouez avec elle et observez-la
+    grandir !
+
+
+    Play mini-games to win money to buy fertiliser and water.
+
+
+    Above
+    all else, have fun playing Garden Pet!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
