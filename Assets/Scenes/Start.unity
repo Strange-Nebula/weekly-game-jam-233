@@ -400,19 +400,16 @@ MonoBehaviour:
     Water them, feed them and
     play with them to watch them grow!
 
-    Yout plant will evolve depending on how
-    you took care of them; she could become a sunflower, a water lily or a even a
-    carnivorous plant!
-
-    Arrosez-la, nourrissez-la, jouez avec elle et observez-la
-    grandir !
+    Your plant will evolve depending on how
+    you took care of them; they could become a sunflower, a water lily or a even
+    a carnivorous plant!
 
 
-    Play mini-games to win money to buy fertiliser and water.
+    Play mini-games to gain money to buy fertiliser and
+    water.
 
 
-    Above
-    all else, have fun playing Garden Pet!'
+    Above all else, have fun playing Garden Pet!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
